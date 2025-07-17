@@ -2,36 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>360 Viewer with Panolens</title>
+  <title>360 Viewer with Gyroscope</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       height: 100%;
-      background: #000;
     }
-    #container {
+    #viewer {
       width: 100%;
       height: 100vh;
     }
   </style>
+  <!-- کتابخانه‌ها -->
+  <link rel="stylesheet" href="https://unpkg.com/photo-sphere-viewer@5/dist/photo-sphere-viewer.css">
+  <script src="https://unpkg.com/uevent@2/browser.min.js"></script>
+  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+  <script src="https://unpkg.com/photo-sphere-viewer@5/dist/photo-sphere-viewer.min.js"></script>
 </head>
 <body>
 
-  <div id="container"></div>
-
-  <!-- سه‌جی و پانولنز -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
+  <div id="viewer"></div>
 
   <script>
-    const panorama = new PANOLENS.ImagePanorama('360.png'); // مسیر عکس
-    const viewer = new PANOLENS.Viewer({
-      container: document.querySelector('#container'),
-      autoRotate: true,
-      autoRotateSpeed: 0.5,
-      controlBar: true
+    const viewer = new PhotoSphereViewer.Viewer({
+      container: document.getElementById('viewer'),
+      panorama: 'https://photo-sphere-viewer.js.org/assets/sphere.jpg',
+      loadingImg: 'https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif',
+      navbar: ['zoom', 'fullscreen', 'gyroscope'],
+      useXmpData: false, // اگه عکس اطلاعات XMP نداره
+      plugins: [
+        PhotoSphereViewer.GyroscopePlugin
+      ]
     });
-    viewer.add(panorama);
+
+    // فعال‌سازی Gyroscope
+    viewer.once('ready', () => {
+      const gyroscope = viewer.getPlugin(PhotoSphereViewer.GyroscopePlugin);
+      gyroscope.start();
+    });
   </script>
 
 </body>
