@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>360 Viewer with Gyroscope</title>
+  <title>360 Viewer</title>
   <style>
     html, body {
       margin: 0;
@@ -13,7 +13,7 @@
       height: 100vh;
     }
   </style>
-  <!-- کتابخانه‌ها -->
+  <!-- اضافه کردن کتابخانه Photo Sphere Viewer -->
   <link rel="stylesheet" href="https://unpkg.com/photo-sphere-viewer@5/dist/photo-sphere-viewer.css">
   <script src="https://unpkg.com/uevent@2/browser.min.js"></script>
   <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
@@ -26,19 +26,10 @@
   <script>
     const viewer = new PhotoSphereViewer.Viewer({
       container: document.getElementById('viewer'),
-      panorama: '360.png',
+      panorama: '360.png', // مطمئن شو فایل در همان مسیر فایل HTML است
       loadingImg: 'https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif',
-      navbar: ['zoom', 'fullscreen', 'gyroscope'],
-      useXmpData: false, // اگه عکس اطلاعات XMP نداره
-      plugins: [
-        PhotoSphereViewer.GyroscopePlugin
-      ]
-    });
-
-    // فعال‌سازی Gyroscope
-    viewer.once('ready', () => {
-      const gyroscope = viewer.getPlugin(PhotoSphereViewer.GyroscopePlugin);
-      gyroscope.start();
+      navbar: ['zoom', 'fullscreen'],
+      defaultYaw: 0,
     });
   </script>
 
