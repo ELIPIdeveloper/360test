@@ -2,35 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>360 Viewer</title>
+  <title>360 Viewer with Panolens</title>
   <style>
-    html, body {
+    body, html {
       margin: 0;
       height: 100%;
+      background: #000;
     }
-    #viewer {
+    #container {
       width: 100%;
       height: 100vh;
     }
   </style>
-  <!-- اضافه کردن کتابخانه Photo Sphere Viewer -->
-  <link rel="stylesheet" href="https://unpkg.com/photo-sphere-viewer@5/dist/photo-sphere-viewer.css">
-  <script src="https://unpkg.com/uevent@2/browser.min.js"></script>
-  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-  <script src="https://unpkg.com/photo-sphere-viewer@5/dist/photo-sphere-viewer.min.js"></script>
 </head>
 <body>
 
-  <div id="viewer"></div>
+  <div id="container"></div>
+
+  <!-- سه‌جی و پانولنز -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
 
   <script>
-    const viewer = new PhotoSphereViewer.Viewer({
-      container: document.getElementById('viewer'),
-      panorama: 'https://drive.usercontent.google.com/download?id=12w_QkIjnK9OmYPgmf-x1zb5F6YSIeLnL&export=download&authuser=0', // مطمئن شو فایل در همان مسیر فایل HTML است
-      loadingImg: 'https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif',
-      navbar: ['zoom', 'fullscreen'],
-      defaultYaw: 0,
+    const panorama = new PANOLENS.ImagePanorama('360.png'); // مسیر عکس
+    const viewer = new PANOLENS.Viewer({
+      container: document.querySelector('#container'),
+      autoRotate: true,
+      autoRotateSpeed: 0.5,
+      controlBar: true
     });
+    viewer.add(panorama);
   </script>
 
 </body>
